@@ -341,42 +341,7 @@ function PressBtn({ onClick, disabled, children, style={}, gold=false }) {
   );
 }
 
-/* ══════════════════════════════════════════════════════
-   ANIMATED WORD HEADLINE
-   Each word in the step headline springs in staggered.
-   Not letter by letter — word by word feels like thought.
-══════════════════════════════════════════════════════ */
-function AnimatedHeadline({ children }) {
-  const text = typeof children === "string" ? children : null;
-  if (!text) {
-    // JSX children — just animate the whole block
-    return (
-      <motion.h2
-        initial={{ opacity:0, y:14 }} animate={{ opacity:1, y:0 }}
-        transition={{ ...SP.arrive, delay:0.05 }}
-        style={{ fontFamily:C.display, fontSize:52, color:C.ink,
-          margin:0, letterSpacing:"-1.5px", lineHeight:0.95 }}>
-        {children}
-      </motion.h2>
-    );
-  }
-  const words = text.split(" ");
-  return (
-    <motion.h2
-      variants={{ show:{ transition:{ staggerChildren:0.06, delayChildren:0.05 } } }}
-      initial="hidden" animate="show"
-      style={{ fontFamily:C.display, fontSize:52, color:C.ink,
-        margin:0, letterSpacing:"-1.5px", lineHeight:0.95 }}>
-      {words.map((w, i) => (
-        <motion.span key={i}
-          variants={{ hidden:{opacity:0, y:12}, show:{opacity:1, y:0, transition:SP.arrive} }}
-          style={{ display:"inline-block", marginRight:"0.28em" }}>
-          {w}
-        </motion.span>
-      ))}
-    </motion.h2>
-  );
-}
+
 
 /* ══════════════════════════════════════════════════════
    STEP PROGRESS BAR
@@ -520,13 +485,6 @@ export default function Drafted() {
   const actionItemVariants = {
     hidden: { opacity:0, x:12 },
     show:   { opacity:1, x:0, transition:SP.arrive },
-  };
-
-  const stepHeadlines = {
-    candidate:    <><span style={{ color:C.gold }}>Who</span> is the<br/>offer for?</>,
-    compensation: <>What's the<br/><span style={{ color:C.gold }}>compensation?</span></>,
-    terms:        <>What are<br/><span style={{ color:C.gold }}>the terms?</span></>,
-    company:      <><span style={{ color:C.gold }}>Company</span><br/>details</>,
   };
 
   return (
